@@ -59,8 +59,8 @@ def build_classifier(optimizer):
     
 classifier = KerasClassifier(build_fn = build_classifier  )
 parameters = {
-                'batch_size': [25,32],
-                'nb_epoch' : [10,50],
+                'batch_size': [20,30],
+                'nb_epoch' : [150,400],
                 'optimizer' : ['adam', 'rmsprop']
             }
 
