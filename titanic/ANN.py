@@ -57,16 +57,20 @@ classifier = Sequential()
 
 ## Adding Layers to ANN
 # Adding Input Layer and First Hiddent Layer
-classifier.add( Dense(output_dim = 6, init = 'uniform', activation= 'relu', input_dim= 8 ))
+classifier.add( Dense(output_dim = 10, init = 'uniform', activation= 'relu', input_dim= 8 ))
 #            ouput_dim = number Of Neurons In This Layer                input_dim = number of neurons in previous layer (here previous layer is input layer)
 classifier.add(Dropout(0.1))
 
 # Add 2nd hidden layer
-classifier.add( Dense(output_dim = 6, init = 'uniform', activation= 'relu' ))
+classifier.add( Dense(output_dim = 10, init = 'uniform', activation= 'relu' ))
+classifier.add(Dropout(0.1))
+
+# Add 2nd hidden layer
+classifier.add( Dense(output_dim = 10, init = 'uniform', activation= 'relu' ))
 classifier.add(Dropout(0.1))
 
 # Add 3rd hidden layer
-classifier.add( Dense(output_dim = 6, init = 'uniform', activation= 'relu' ))
+classifier.add( Dense(output_dim = 10, init = 'uniform', activation= 'relu' ))
 classifier.add(Dropout(0.1))
 
 # Add Output layer
@@ -79,7 +83,7 @@ classifier.compile(optimizer='adam', loss='binary_crossentropy' , metrics = ['ac
 
 
 # Fitting the ANN
-classifier.fit( X_train , y_train , batch_size= 10 , nb_epoch =100)
+classifier.fit( X_train , y_train , batch_size= 15 , nb_epoch =2000)
 
 # Make Predictions on test set
 y_pred = classifier.predict(X_test)
@@ -134,13 +138,11 @@ X = sc.transform(X)
 # Make Predictions on test set
 y_pred = classifier.predict(X)
 y_pred = (y_pred > 0.4).astype(int)
-
 dataset_pred['Survived'] = y_pred
+Solution = dataset_pred.loc[:,['PassengerId','Survived']]
 
 
-
-
-dataset_pred.to_csv('gender_submission.csv', sep=',')
+Solution.to_csv('gender_submission.csv', sep=',')
 
 
 
